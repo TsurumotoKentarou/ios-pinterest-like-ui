@@ -26,12 +26,12 @@ struct TermLabel: View {
         let width: CGFloat = UIScreen.main.bounds.width / 2 - (xMargin * CGFloat(columnCount+1)) / 2
         let columns: [GridItem] = Array(repeating: .init(.fixed(width), spacing: xMargin), count: columnCount)
         
-        return VStack(alignment: .leading) {
+        return ZStack(alignment: .topLeading) {
             LazyVGrid(columns: columns, spacing: xMargin) {
                 ForEach(datas) { data in
                     generateContent(in: geometryReader, data: data, width: width, xMargin: xMargin)
-                        .frame(minHeight: 150)
-                        .frame(maxHeight: 400)
+//                        .frame(minHeight: 150)
+//                        .frame(maxHeight: 400)
                 }
             }
         }
@@ -45,36 +45,36 @@ struct TermLabel: View {
         var tempRightHeight: CGFloat = .zero
         
         return ItemView(content: data.content, width: width)
-//            .alignmentGuide(.top, computeValue: {d in
-//                //                let result = tempHeight
-//                //                if data.id == datas.last?.id {
-//                //                    tempHeight = 0 // last item
-//                //                }
-//                let result: CGFloat
-//                // 左と右どちらが高さが低いか
-//                if tempLeftHeight <= tempRightHeight {
-//                    result = tempLeftHeight
-//                    tempLeftHeight += d.height
-//                }
-//                else {
-//                    result = tempRightHeight
-//                    tempRightHeight += d.height
-//                }
-//                print("width: \(d.width), height: \(d.height)")
-//                return result
-//            })
-//            .alignmentGuide(.leading, computeValue: { d in
-//                let result: CGFloat
-//                // 左が空いている
-//                if tempLeftHeight <= tempRightHeight {
-//                    result = xMargin
-//                }
-//                else {
-//                    result = xMargin*2 + width
-//                }
-//
-//                return result
-//            })
+            .alignmentGuide(.top, computeValue: {d in
+                //                let result = tempHeight
+                //                if data.id == datas.last?.id {
+                //                    tempHeight = 0 // last item
+                //                }
+                let result: CGFloat
+                // 左と右どちらが高さが低いか
+                if tempLeftHeight <= tempRightHeight {
+                    result = tempLeftHeight
+                    tempLeftHeight += d.height
+                }
+                else {
+                    result = tempRightHeight
+                    tempRightHeight += d.height
+                }
+                print("width: \(d.width), height: \(d.height)")
+                return result
+            })
+            .alignmentGuide(.leading, computeValue: { d in
+                let result: CGFloat
+                // 左が空いている
+                if tempLeftHeight <= tempRightHeight {
+                    result = xMargin
+                }
+                else {
+                    result = xMargin*2 + width
+                }
+
+                return result
+            })
         
     }
 }
