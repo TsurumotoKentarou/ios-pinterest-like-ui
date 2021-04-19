@@ -14,61 +14,68 @@ struct TermLabel: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                userPostsList
+                userPostsList(geometryReader: geometry)
             }
             .background(Color.red)
         }
     }
     
-    private var userPostsList: some View {
+    private func userPostsList(geometryReader: GeometryProxy) -> some View {
         let columnCount: Int = 2
         let xMargin: CGFloat = 50
         let width: CGFloat = UIScreen.main.bounds.width / 2 - (xMargin * CGFloat(columnCount+1)) / 2
         let columns: [GridItem] = Array(repeating: .init(.fixed(width), spacing: xMargin), count: columnCount)
         
-        return ZStack(alignment: .topLeading) {
+        return VStack(alignment: .leading) {
             LazyVGrid(columns: columns, spacing: xMargin) {
                 ForEach(datas) { data in
-                    GeometryReader { geometryReader in
-                        generateContent(in: geometryReader, data: data, width: width)
-                            .frame(minHeight: 150)
-                            .frame(maxHeight: 400)
-                    }
+                    generateContent(in: geometryReader, data: data, width: width, xMargin: xMargin)
+                        .frame(minHeight: 150)
+                        .frame(maxHeight: 400)
                 }
             }
         }
     }
     
-    private func generateContent(in g: GeometryProxy, data: CustomData, width: CGFloat) -> some View {
+    private func generateContent(in g: GeometryProxy, data: CustomData, width: CGFloat, xMargin: CGFloat) -> some View {
         var tempWidth = CGFloat.zero
         var tempHeight = CGFloat.zero
         
+        var tempLeftHeight: CGFloat = .zero
+        var tempRightHeight: CGFloat = .zero
+        
         return ItemView(content: data.content, width: width)
-            .alignmentGuide(.leading, computeValue: { d in
-                if (abs(width - d.width) > g.size.width)
-                {
-                    tempWidth = 0
-                    tempHeight -= d.height
-                }
-                
-                let result = width
-                
-                if data.id == datas.last?.id {
-                    tempWidth = 0
-                }
-                else {
-                    tempWidth -= d.width
-                }
-                
-                return result
-            })
-            .alignmentGuide(.top, computeValue: {d in
-                let result = tempHeight
-                if data.id == datas.last?.id {
-                    tempHeight = 0 // last item
-                }
-                return result
-            })
+//            .alignmentGuide(.top, computeValue: {d in
+//                //                let result = tempHeight
+//                //                if data.id == datas.last?.id {
+//                //                    tempHeight = 0 // last item
+//                //                }
+//                let result: CGFloat
+//                // 左と右どちらが高さが低いか
+//                if tempLeftHeight <= tempRightHeight {
+//                    result = tempLeftHeight
+//                    tempLeftHeight += d.height
+//                }
+//                else {
+//                    result = tempRightHeight
+//                    tempRightHeight += d.height
+//                }
+//                print("width: \(d.width), height: \(d.height)")
+//                return result
+//            })
+//            .alignmentGuide(.leading, computeValue: { d in
+//                let result: CGFloat
+//                // 左が空いている
+//                if tempLeftHeight <= tempRightHeight {
+//                    result = xMargin
+//                }
+//                else {
+//                    result = xMargin*2 + width
+//                }
+//
+//                return result
+//            })
+        
     }
 }
 
