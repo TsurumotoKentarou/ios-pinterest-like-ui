@@ -27,7 +27,7 @@ struct ItemView: View {
     
     private var photoBg: some View {
         Color.gray
-            .frame(height: 200)
+            .frame(height: 100)
     }
     
     private var contentLabel: some View {

@@ -12,12 +12,13 @@ struct TermLabel: View {
     @State var datas: [CustomData] = DataFactory.datas()
     
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
+
+        ScrollView {
+            GeometryReader { geometry in
                 userPostsList(geometryReader: geometry)
             }
-            .background(Color.red)
         }
+        .background(Color.red)
     }
     
     private func userPostsList(geometryReader: GeometryProxy) -> some View {
@@ -27,20 +28,16 @@ struct TermLabel: View {
         let columns: [GridItem] = Array(repeating: .init(.fixed(width), spacing: xMargin), count: columnCount)
         
         return ZStack(alignment: .topLeading) {
-            LazyVGrid(columns: columns, spacing: xMargin) {
-                ForEach(datas) { data in
-                    generateContent(in: geometryReader, data: data, width: width, xMargin: xMargin)
+            
+            ForEach(datas) { data in
+                generateContent(in: geometryReader, data: data, width: width, xMargin: xMargin)
 //                        .frame(minHeight: 150)
 //                        .frame(maxHeight: 400)
-                }
             }
         }
     }
     
     private func generateContent(in g: GeometryProxy, data: CustomData, width: CGFloat, xMargin: CGFloat) -> some View {
-        var tempWidth = CGFloat.zero
-        var tempHeight = CGFloat.zero
-        
         var tempLeftHeight: CGFloat = .zero
         var tempRightHeight: CGFloat = .zero
         
@@ -60,7 +57,8 @@ struct TermLabel: View {
                     result = tempRightHeight
                     tempRightHeight += d.height
                 }
-                print("width: \(d.width), height: \(d.height)")
+                print("tempLeftHeight: \(tempLeftHeight), tempRightHeight: \(tempRightHeight)")
+//                print("width: \(d.width), height: \(d.height)")
                 return result
             })
             .alignmentGuide(.leading, computeValue: { d in
@@ -75,7 +73,6 @@ struct TermLabel: View {
 
                 return result
             })
-        
     }
 }
 
