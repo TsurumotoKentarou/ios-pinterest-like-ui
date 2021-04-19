@@ -13,6 +13,9 @@
 		03714808262D71B100347D92 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03714807262D71B100347D92 /* Preview Assets.xcassets */; };
 		03714813262D71B100347D92 /* PinterestLikeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03714812262D71B100347D92 /* PinterestLikeUITests.swift */; };
 		0371481E262D71B100347D92 /* PinterestLikeUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0371481D262D71B100347D92 /* PinterestLikeUIUITests.swift */; };
+		0371482F262D71CB00347D92 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0371482E262D71CB00347D92 /* ItemView.swift */; };
+		03714834262D72D300347D92 /* TermLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03714833262D72D300347D92 /* TermLabel.swift */; };
+		03714839262D780C00347D92 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03714838262D780C00347D92 /* Data.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 		03714819262D71B100347D92 /* PinterestLikeUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PinterestLikeUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0371481D262D71B100347D92 /* PinterestLikeUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLikeUIUITests.swift; sourceTree = "<group>"; };
 		0371481F262D71B100347D92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0371482E262D71CB00347D92 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
+		03714833262D72D300347D92 /* TermLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermLabel.swift; sourceTree = "<group>"; };
+		03714838262D780C00347D92 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,9 @@
 				03714804262D71B100347D92 /* Assets.xcassets */,
 				03714809262D71B100347D92 /* Info.plist */,
 				03714806262D71B100347D92 /* Preview Content */,
+				0371482E262D71CB00347D92 /* ItemView.swift */,
+				03714833262D72D300347D92 /* TermLabel.swift */,
+				03714838262D780C00347D92 /* Data.swift */,
 			);
 			path = PinterestLikeUI;
 			sourceTree = "<group>";
@@ -260,6 +269,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				03714803262D71AF00347D92 /* ContentView.swift in Sources */,
+				03714839262D780C00347D92 /* Data.swift in Sources */,
+				0371482F262D71CB00347D92 /* ItemView.swift in Sources */,
+				03714834262D72D300347D92 /* TermLabel.swift in Sources */,
 				03714801262D71AF00347D92 /* PinterestLikeUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
