@@ -9,44 +9,37 @@ import SwiftUI
 
 struct TermLabel2: View {
     
-    enum TextType: String, CaseIterable {
-        case term = "利用規約"
-        case text1 = "あああああああああああああああああああああああああああああ"
-        
-        case text2 = "及び"
-        case text3 = "及び4"
-        case privacyPolicy = "上記のいずれかをク上記のいずれかをク上記のいずれかをク"
-        case text4 = "に同意するものとしますに同意するものとしますに同意するものとしますに同意するものとします"
-    }
-    
-    private let textTypes: [TextType] = TextType.allCases
+    private let texts: [String] = [
+        "1111111111111111111111111111111111111111",
+        "22222222222222",
+        "3333333333333333333333333",
+        "44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444",
+        "555555555555555555555555555555",
+        "666666666666666666666666",
+        "7777777777777777777777777777777777777777777777777777777",
+        "888",
+        "999999"
+    ]
     
     var body: some View {
         GeometryReader { geometry in
             self.generateContent(in: geometry)
-                .background(Color.yellow)
         }
     }
     
     private func generateContent(in g: GeometryProxy) -> some View {
-//        var width = CGFloat.zero
-//        var height = CGFloat.zero
-        
         let columnCount: Int = 2
         let xMargin: CGFloat = 50
         let onewidth: CGFloat = UIScreen.main.bounds.width / 2 - (xMargin * CGFloat(columnCount+1)) / 2
-        let columns: [GridItem] = Array(repeating: .init(.fixed(onewidth), spacing: xMargin), count: columnCount)
         
         var tempLeftHeight: CGFloat = .zero
         var tempRightHeight: CGFloat = .zero
         
         return ZStack(alignment: .topLeading) {
-//            LazyVGrid(columns: columns, spacing: xMargin) {
-//
-//            }
-            ForEach(textTypes, id: \.self) { textType in
-                self.text(for: textType, width: onewidth)
+            ForEach(texts, id: \.self) { text in
+                self.text(for: text, width: onewidth)
                     .padding(.horizontal, xMargin)
+                    .padding(.vertical, 3)
                     .alignmentGuide(.top, computeValue: { d in
                         let result: CGFloat
                         // 左と右どちらが高さが低いか
@@ -59,20 +52,16 @@ struct TermLabel2: View {
                             tempRightHeight -= d.height
                         }
                         
-                        if textType == textTypes.last {
+                        if text == texts.last {
                             tempRightHeight = 0
                             tempLeftHeight = 0
-//                            print("\n")
                         }
-                        print("\(textType): \(result)")
-//                        print("tempLeftHeight: \(tempLeftHeight), tempRightHeight: \(tempRightHeight)")
-        //                print("width: \(d.width), height: \(d.height)")
                         return result
                     })
                     .alignmentGuide(.leading, computeValue: { d in
                         let result: CGFloat
                         // 左が空いている
-                        if tempLeftHeight <= tempRightHeight {
+                        if tempLeftHeight > tempRightHeight {
                             result = xMargin
                         }
                         else {
@@ -85,19 +74,11 @@ struct TermLabel2: View {
     }
     
     
-    func text(for textType: TextType, width: CGFloat) -> some View {
-//        Rectangle()
-//            .foregroundColor(.blue)
-//            .frame(width: width)
-        baseText(textType: textType)
-            .frame(width: width)
-    }
-    
-    private func baseText(textType: TextType) -> some View {
-        return Text(textType.rawValue)
+    private func text(for text: String, width: CGFloat) -> some View {
+        return Text(text)
             .font(.body)
-            .foregroundColor(.blue)
-            .background(Color.red)
+            .background(Color.orange)
+            .frame(width: width)
     }
 }
 
