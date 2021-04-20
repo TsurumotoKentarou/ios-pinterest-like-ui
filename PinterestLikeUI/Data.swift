@@ -23,6 +23,15 @@ class DataFactory {
         return datas
     }
     
+    static func datas() -> [String] {
+        var datas: [String] = []
+        for _ in 0 ..< 100 {
+            let data: String = randomString(length: Int.random(in: 1..<50))
+            datas.append(data)
+        }
+        return datas
+    }
+    
     static func randomString(length: Int) -> String {
 
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

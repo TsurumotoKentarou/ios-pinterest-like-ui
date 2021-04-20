@@ -9,21 +9,13 @@ import SwiftUI
 
 struct TermLabel2: View {
     
-    private let texts: [String] = [
-        "1111111111111111111111111111111111111111",
-        "22222222222222",
-        "3333333333333333333333333",
-        "44444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444",
-        "555555555555555555555555555555",
-        "666666666666666666666666",
-        "7777777777777777777777777777777777777777777777777777777",
-        "888",
-        "999999"
-    ]
+    private let texts: [String] = DataFactory.datas()
     
     var body: some View {
         GeometryReader { geometry in
-            self.generateContent(in: geometry)
+            ScrollView {
+                self.generateContent(in: geometry)
+            }
         }
     }
     
