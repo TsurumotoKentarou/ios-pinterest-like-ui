@@ -15,7 +15,7 @@ struct CustomData: Identifiable {
 class DataFactory {
     static func datas() -> [CustomData] {
         var datas: [CustomData] = []
-        for _ in 0 ..< 1 {
+        for _ in 0 ..< 3 {
             var data: CustomData = .init()
             data.content = randomString(length: 100)
             datas.append(data)

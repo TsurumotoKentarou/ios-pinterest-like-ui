@@ -11,7 +11,7 @@ import SwiftUI
 struct PinterestLikeUIApp: App {
     var body: some Scene {
         WindowGroup {
-            TermLabel()
+            TermLabel2()
         }
     }
 }

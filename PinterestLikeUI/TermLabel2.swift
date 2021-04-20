@@ -10,11 +10,13 @@ import SwiftUI
 struct TermLabel2: View {
     
     enum TextType: String, CaseIterable {
-        case text1 = "上記のいずれかをクリックすることで、"
-//        case term = "利用規約"
-//        case text2 = "及び"
-//        case privacyPolicy = "プライバシーポリシー"
-//        case text3 = "に同意するものとします"
+        case term = "利用規約"
+        case text1 = "あああああああああああああああああああああああああああああ"
+        
+        case text2 = "及び"
+        case text3 = "及び4"
+        case privacyPolicy = "上記のいずれかをク上記のいずれかをク上記のいずれかをク"
+        case text4 = "に同意するものとしますに同意するものとしますに同意するものとしますに同意するものとします"
     }
     
     private let textTypes: [TextType] = TextType.allCases
@@ -22,38 +24,60 @@ struct TermLabel2: View {
     var body: some View {
         GeometryReader { geometry in
             self.generateContent(in: geometry)
+                .background(Color.yellow)
         }
     }
     
     private func generateContent(in g: GeometryProxy) -> some View {
-        var width = CGFloat.zero
-        var height = CGFloat.zero
+//        var width = CGFloat.zero
+//        var height = CGFloat.zero
+        
+        let columnCount: Int = 2
+        let xMargin: CGFloat = 50
+        let onewidth: CGFloat = UIScreen.main.bounds.width / 2 - (xMargin * CGFloat(columnCount+1)) / 2
+        let columns: [GridItem] = Array(repeating: .init(.fixed(onewidth), spacing: xMargin), count: columnCount)
+        
+        var tempLeftHeight: CGFloat = .zero
+        var tempRightHeight: CGFloat = .zero
         
         return ZStack(alignment: .topLeading) {
+//            LazyVGrid(columns: columns, spacing: xMargin) {
+//
+//            }
             ForEach(textTypes, id: \.self) { textType in
-                self.text(for: textType)
-                    .padding([.horizontal, .vertical], 0)
-                    .alignmentGuide(.leading, computeValue: { d in
-                        if (abs(width - d.width) > g.size.width)
-                        {
-                            width = 0
-                            height -= d.height
+                self.text(for: textType, width: onewidth)
+                    .padding(.horizontal, xMargin)
+                    .alignmentGuide(.top, computeValue: { d in
+                        let result: CGFloat
+                        // 左と右どちらが高さが低いか
+                        if tempLeftHeight > tempRightHeight {
+                            result = tempLeftHeight
+                            tempLeftHeight -= d.height
                         }
-                        let result = width
-                        if textType == textTypes.last! {
-                            width = 0
-                        } else {
-                            width -= d.width
+                        else {
+                            result = tempRightHeight
+                            tempRightHeight -= d.height
                         }
-                        print(result)
+                        
+                        if textType == textTypes.last {
+                            tempRightHeight = 0
+                            tempLeftHeight = 0
+//                            print("\n")
+                        }
+                        print("\(textType): \(result)")
+//                        print("tempLeftHeight: \(tempLeftHeight), tempRightHeight: \(tempRightHeight)")
+        //                print("width: \(d.width), height: \(d.height)")
                         return result
                     })
-                    .alignmentGuide(.top, computeValue: {d in
-                        let result = height
-                        if textType == textTypes.last! {
-                            height = 0 // last item
+                    .alignmentGuide(.leading, computeValue: { d in
+                        let result: CGFloat
+                        // 左が空いている
+                        if tempLeftHeight <= tempRightHeight {
+                            result = xMargin
                         }
-                        print(result)
+                        else {
+                            result = xMargin*2 + onewidth
+                        }
                         return result
                     })
             }
@@ -61,16 +85,19 @@ struct TermLabel2: View {
     }
     
     
-    func text(for textType: TextType) -> some View {
-        Group {
-            baseText(textType: textType)
-        }
+    func text(for textType: TextType, width: CGFloat) -> some View {
+//        Rectangle()
+//            .foregroundColor(.blue)
+//            .frame(width: width)
+        baseText(textType: textType)
+            .frame(width: width)
     }
     
-    private func baseText(textType: TextType) -> Text {
+    private func baseText(textType: TextType) -> some View {
         return Text(textType.rawValue)
             .font(.body)
             .foregroundColor(.blue)
+            .background(Color.red)
     }
 }
 

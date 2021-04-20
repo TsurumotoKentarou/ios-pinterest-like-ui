@@ -12,7 +12,27 @@ struct TermLabel: View {
     @State var datas: [CustomData] = DataFactory.datas()
     
     var body: some View {
-
+//        VStack {
+//            Text("Today's Weather")
+//                .font(.title)
+//                .border(Color.gray)
+//
+//            HStack {
+//                Text("🌧")
+//                    .alignmentGuide(VerticalAlignment.center) { _ in
+//                        return -20
+//                    }
+//
+//                Text("Rain & Thunderstorms")
+//                    .border(Color.gray)
+//
+//                Text("⛈")
+//                    .alignmentGuide(VerticalAlignment.center) { _ in
+//                        return 20
+//                    }
+//                    .border(Color.gray)
+//            }
+//        }
         ScrollView {
             GeometryReader { geometry in
                 userPostsList(geometryReader: geometry)
@@ -28,7 +48,6 @@ struct TermLabel: View {
         let columns: [GridItem] = Array(repeating: .init(.fixed(width), spacing: xMargin), count: columnCount)
         
         return ZStack(alignment: .topLeading) {
-            
             ForEach(datas) { data in
                 generateContent(in: geometryReader, data: data, width: width, xMargin: xMargin)
 //                        .frame(minHeight: 150)
@@ -42,11 +61,13 @@ struct TermLabel: View {
         var tempRightHeight: CGFloat = .zero
         
         return ItemView(content: data.content, width: width)
-            .alignmentGuide(.top, computeValue: {d in
+            .alignmentGuide(.top, computeValue: { d in
                 //                let result = tempHeight
                 //                if data.id == datas.last?.id {
                 //                    tempHeight = 0 // last item
                 //                }
+                
+                
                 let result: CGFloat
                 // 左と右どちらが高さが低いか
                 if tempLeftHeight <= tempRightHeight {
@@ -57,6 +78,12 @@ struct TermLabel: View {
                     result = tempRightHeight
                     tempRightHeight += d.height
                 }
+                
+                if data.id == datas.last?.id {
+                    tempRightHeight = 0
+                    tempLeftHeight = 0
+                }
+                
                 print("tempLeftHeight: \(tempLeftHeight), tempRightHeight: \(tempRightHeight)")
 //                print("width: \(d.width), height: \(d.height)")
                 return result
